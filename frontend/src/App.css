@@ -1,0 +1,18 @@
+
+body {
+    background-color: whitesmoke
+}
+
+th {
+    text-align: center;
+    font-size: large;
+    
+}
+
+
+input {
+    width: 99%;
+    font-size: x-large;
+    padding: 0.2rem;
+    background-color: white;
+}

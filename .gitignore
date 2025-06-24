@@ -1,0 +1,22 @@
+# Ignore node_modules everywhere
+**/node_modules/
+
+# Ignore .env files everywhere
+**/.env
+**/.env.*
+
+# Build outputs
+frontend/build/
+backend/dist/
+
+# Logs
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+
+# MacOS
+.DS_Store
+
+# IDEs/editors
+.vscode/
+.idea/
