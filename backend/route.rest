@@ -1,0 +1,8 @@
+### POST to import
+POST http://localhost:5000/api/wrestlers
+Content-Type: application/json
+
+###
+
+### GET all wrestlers
+GET http://localhost:5000/api/wrestlers

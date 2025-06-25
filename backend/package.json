@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "devStart": "nodemon server.js",
     "start": "node server.js"
@@ -10,7 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0",
-    "mongoose": "^8.16.0"
+    "jsdom": "^26.1.0",
+    "mongoose": "^8.16.0",
+    "node-fetch": "^3.3.2"
   }
 }
