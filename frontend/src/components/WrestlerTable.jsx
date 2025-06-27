@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import fetchWWEChampions from './APICall.jsx'
+
 import DataTable from 'react-data-table-component';
 import styled, {keyframes} from 'styled-components';
 import { useQuery } from '@tanstack/react-query';
@@ -45,7 +45,7 @@ const columns = [
     },
     {
         name: 'Championship',
-        selector: row => row.championship.map(c=>c.title).join(','),
+        selector: row => row.championship,
         sortable: false,
         wrap: true,
     },
@@ -63,6 +63,13 @@ const columns = [
 ];
 
 
+const fetchWrestlers = async () => {
+  const res = await fetch('http://localhost:5000/api/wrestlers');
+  if (!res.ok) {
+    throw new Error('Failed to fetch wrestlers');
+  }
+  return res.json();
+};
 
 export const WrestlerTable = () => {
     
@@ -72,7 +79,7 @@ export const WrestlerTable = () => {
     
     const {data = [], isLoading} = useQuery({
         queryKey:["wweChampions"],
-        queryFn: fetchWWEChampions,
+        queryFn: fetchWrestlers,
     })
     
 
