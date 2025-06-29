@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 
+import { motion } from 'framer-motion';
 import DataTable from 'react-data-table-component';
 import styled, {keyframes} from 'styled-components';
 import { useQuery } from '@tanstack/react-query';
@@ -42,23 +43,54 @@ const columns = [
         name: 'Name',
         selector: row => row.name,
         sortable: true,
+        cell: row => (
+        <span 
+        style = {{
+            fontWeight: 'bold'
+        }}>
+            {row.name}
+        </span>
+        )
     },
     {
         name: 'Championship',
         selector: row => row.championship,
         sortable: false,
         wrap: true,
+        cell: row => (
+      <span style={{
+        color: 'yellow',
+        fontWeight: 'bold',
+      }}>
+        {row.championship}
+      </span>
+    ),
     },
     {
         name: 'Reigns',
         selector: row => row.totalReigns,
         sortable: true,
+        cell: row => (
+        <span 
+        style = {{
+            fontWeight: 'bold'
+        }}>
+            {row.totalReigns}
+        </span>
+        )
     },
     {
         name: 'Total Days Held',
         selector: row => row.totalDaysHeld,
         sortable: true,
-        format: row => row.totalDaysHeld.toLocaleString(),
+        cell: row => (
+        <span 
+        style = {{
+            fontWeight: 'bold'
+        }}>
+            {row.totalDaysHeld}
+        </span>
+        )
     },
 ];
 
@@ -136,30 +168,31 @@ export const WrestlerTable = () => {
     });
     
     return (
+        
         <div>
-
+            <motion.div initial={{ opacity: 0.5 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
             <input
                 placeholder="Search"
                 type = "text"
                 value = {searchTerm}
                 onChange = {(e) => setSearchTerm(e.target.value)}
                 className = "form-control-sm border ps-3"
-            />
+                style = {{width:'100%',maxWidth:'400px',marginBottom:'1rem',padding:'0.5rem 1rem', fontSize: '1rem',borderRadius:'8px',border:'1px solid #444',background:'#111',color:'#fff'
+                }}
 
+            />
+            
             <DataTable
                 columns={columns}
                 data={filteredData}
                 progressPending={isLoading}
                 progressComponent={<CustomLoader />}
-                //pagination
-                //paginationPerPage={20}
                 highlightOnHover
-                dense
                 striped
-                fixedHeader
-                title = "WWE Champions"
+                
+                theme = "dark"
             />
-
+            </motion.div>
 
 
         </div>
