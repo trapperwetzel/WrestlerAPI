@@ -5,16 +5,17 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "devStart": "nodemon server.js",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
     "express": "^5.1.0",
     "jsdom": "^26.1.0",
     "mongoose": "^8.16.0",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.10"
   }
 }
