@@ -9,8 +9,8 @@ async function fetchWWEChampions() {
 
     const htmlContent = data?.parse?.text?.["*"];
     const dom = new JSDOM(htmlContent);
-    const doc = dom.window.document;
-
+    const doc = dom.window.document;  
+    
     const tables = doc.querySelectorAll("table.wikitable.sortable");
     const table = tables[2];
 
@@ -39,7 +39,6 @@ async function fetchWWEChampions() {
 
       transformedData.push({
         id: rank,
-        rank,
         name: values[1].replace(/["']/g,'').trim(),
         championship: "WWE Championship",
         totalReigns: parseInt(values[2],10), // This is for the ability to sort based on reigns.

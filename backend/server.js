@@ -16,9 +16,9 @@ const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log(" Connected to MongoDB"));
 
-
-app.use(cors());
 app.use(express.json());
+app.use(cors());
+
 
 
 app.use('/api/wrestlers', wrestlerRouter);

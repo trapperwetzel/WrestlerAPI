@@ -13,8 +13,7 @@ router.post('/', async (req, res) => {
             return res.status(404).json({ error: 'No WWE Champions data found' });
         }
 
-        // Clear existing data
-        await Wrestler.deleteMany({});
+        
 
         // Insert new data
         const insertedWrestlers = await Wrestler.insertMany(wweChampionsData);
@@ -29,6 +28,7 @@ router.post('/', async (req, res) => {
 // Getting All
 router.get('/', async (req, res) => {
   const wrestlers = await Wrestler.find().sort({ totalReigns: -1 });
+  console.log("Sending", wrestlers.length, "wrestlers to client");
   res.json(wrestlers);
 });
 
