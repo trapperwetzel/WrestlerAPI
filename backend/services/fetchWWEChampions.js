@@ -36,13 +36,19 @@ async function fetchWWEChampions() {
       const rank = parseInt(rawRank, 10);
       if (isNaN(rank) || values.length < 4 || !values[1]) return;
 
+      const totalReigns = parseInt(values[2], 10)
+      const totalDaysHeld = parseInt(values[3].replace(/,/g,''),10) || 0
 
       transformedData.push({
-        id: rank,
+        
         name: values[1].replace(/["']/g,'').trim(),
-        championship: "WWE Championship",
-        totalReigns: parseInt(values[2],10), // This is for the ability to sort based on reigns.
-        totalDaysHeld: parseInt(values[3].replace(/,/g,''),10) || 0
+        championship:{ 
+                        championshipName: "WWE Championship",
+                        totalReigns: totalReigns,
+                        totalDaysHeld: totalDaysHeld
+                    },
+        totalReigns: totalReigns, 
+        totalDaysHeld: totalDaysHeld
       });
     });
 
