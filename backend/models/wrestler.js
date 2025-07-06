@@ -11,7 +11,7 @@ const wrestlerSchema = new mongoose.Schema({
     required: true
   },
   championship:{
-    type: String,
+    type: Object,
     required: true,
   },
   totalReigns: {
