@@ -18,9 +18,9 @@ async function fetchTagChampions() {
 
         
         const tables = doc.querySelectorAll("table.wikitable.sortable");
-        console.log(tables);
+        
         const table = tables[1];
-        console.log(table);
+        
 
         if (!table) {
             console.warn("Combined reigns table not found.");
@@ -45,9 +45,8 @@ async function fetchTagChampions() {
 
             
             const firstCell = values[0]?.trim();
-            
-            // Determine if the first cell is a number or a name
-            let nameIndex = isNaN(firstCell) ? 0 : 1; 
+            let nameIndex = isNaN(firstCell) ? 0 : 1;
+            console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
             const name = values[nameIndex]?.replace(/["']/g, '').trim();
             
             
@@ -81,25 +80,23 @@ async function fetchTagChampions() {
                 transformedData.push({
                     
                     name: name,
-                    championshipName: "Tag Championship",
                     championship:{ 
                         championshipName: "Tag Championship",
                         totalReigns: totalReigns,
                         totalDaysHeld: totalDaysHeld
                     },
-                    totalReigns: totalReigns,
-                    totalDaysHeld: totalDaysHeld
                 });
             } else {
                 console.log(`Skipping row ${index} due to invalid name or reigns:`, values);
             }
         });
 
-        transformedData.sort((a, b) => b.totalReigns - a.totalReigns || b.totalDaysHeld - a.totalDaysHeld);
+        transformedData.sort((a, b) =>  b.totalDaysHeld - a.totalDaysHeld);
 
         
         console.table(transformedData);
-
+        
+        
         return transformedData;
 
     } catch (err) {

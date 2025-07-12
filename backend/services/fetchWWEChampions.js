@@ -41,7 +41,7 @@ async function fetchWWEChampions() {
       const name = values[1].replace(/["']/g, '').trim();
 
       transformedData.push({
-        name,
+        name:name,
         championship: {
           championshipName: "WWE Championship",
           totalReigns,
