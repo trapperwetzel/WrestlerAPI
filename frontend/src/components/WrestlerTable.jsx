@@ -107,14 +107,12 @@ export const WrestlerTable = () => {
     
     const [searchTerm, setSearchTerm] = useState('');
     
-    
-    
     const {data = [], isLoading} = useQuery({
         queryKey:["wweChampions"],
         queryFn: fetchWrestlers,
     })
     
-
+    console.log(data);
 
 
 
@@ -134,7 +132,11 @@ export const WrestlerTable = () => {
 
     const filteredData = data.filter(wrestler => {
         const term = searchTerm.toLowerCase();
-
+        console.log(wrestler.name);if (!wrestler || typeof wrestler.name !== 'string') {
+        console.warn("Skipping invalid wrestler:", wrestler);
+        return false;
+    }
+        
         const nameSearch = wrestler.name.toLowerCase().includes(term);
 
         let daysSearch = false;
@@ -181,7 +183,6 @@ export const WrestlerTable = () => {
                 }}
 
             />
-            
             <DataTable
                 columns={columns}
                 data={filteredData}
