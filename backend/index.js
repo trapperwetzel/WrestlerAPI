@@ -1,7 +1,7 @@
-import fetchICChampions from './services/fetchICChampions.js'
-import fetchWWEChampions from './services/fetchWWEChampions.js';
-import mergeChampionsData from './services/mergeChampionsData.js';
 
-fetchICChampions();
-fetchWWEChampions();
+import mergeChampionsData from './services/mergeChampionsData.js';
+import fetchTagChampions from './services/fetchTagChampions.js';
+
+
 mergeChampionsData();
+//fetchTagChampions();

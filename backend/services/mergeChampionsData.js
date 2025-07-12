@@ -1,43 +1,45 @@
 import fetchICChampions from './fetchICChampions.js';
 import fetchWWEChampions from './fetchWWEChampions.js';
 
-
-
 const mergeChampionsData = async () => {
   const combinedMap = new Map();
 
   const mergeData = (dataArray) => {
     dataArray.forEach(({ name, championship }) => {
-      if (!combinedMap.has(name)) {
-        combinedMap.set(name, { name, championships: [] });
+      if (!name || !championship || !championship.championshipName) return;
+
+      // Normalize name
+      const cleanKey = name.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
+
+      if (!combinedMap.has(cleanKey)) {
+        combinedMap.set(cleanKey, {
+          name: name.trim(),
+          championships: [],
+        });
       }
-      combinedMap.get(name).championships.push(championship);
+
+      combinedMap.get(cleanKey).championships.push(championship);
     });
   };
 
   const icChampionsData = await fetchICChampions();
   const wweChampionsData = await fetchWWEChampions();
 
- 
   mergeData(icChampionsData);
   mergeData(wweChampionsData);
 
-  
-  const mergedData = Array.from(combinedMap.values());
+  const mergedData = Array.from(combinedMap.values()).filter(w => w.championships.length > 0);
 
-  
-  const finalData = mergedData.map(wrestler => ({
-    Name: wrestler.name,
-    Championships: wrestler.championships.map(champ => ({
-      Championship: champ.championshipName,
-      TotalReigns: champ.totalReigns,
-      TotalDaysHeld: champ.totalDaysHeld
+  const finalData = mergedData.flatMap(wrestler =>
+    wrestler.championships.map(champ => ({
+      name: wrestler.name,
+      championship: champ.championshipName,
+      totalReigns: champ.totalReigns,
+      totalDaysHeld: champ.totalDaysHeld,
     }))
-  }));
+  );
 
-  console.log(JSON.stringify(finalData, null, 2));
   return finalData;
 };
 
 export default mergeChampionsData;
-
