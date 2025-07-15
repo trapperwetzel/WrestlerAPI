@@ -53,8 +53,6 @@ async function fetchWWEChampions() {
       });
     });
 
-    transformedData.sort((a, b) => b.totalReigns - a.totalReigns);
-
     return transformedData;
 
   } catch (err) {

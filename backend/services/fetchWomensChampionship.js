@@ -71,8 +71,8 @@ async function fetchWomensChampionship() {
       }
     });
 
-    transformedData.sort((a, b) => b.totalDaysHeld - a.totalDaysHeld);
-    console.table(transformedData);
+    
+    
     return transformedData;
 
   } catch (err) {

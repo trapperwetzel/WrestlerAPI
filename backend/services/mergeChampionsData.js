@@ -1,9 +1,10 @@
-import fetchICChampions      from './fetchICChampions.js';
-import fetchTagChampions     from './fetchTagChampions.js';
-import fetchUSChampions      from './fetchUSChampions.js';
-import fetchWWEChampions     from './fetchWWEChampions.js';
-import fetchDivaChampions    from './fetchDivasChampions.js';
+import fetchICChampions   from './fetchICChampions.js';
+import fetchTagChampions  from './fetchTagChampions.js';
+import fetchUSChampions   from './fetchUSChampions.js';
+import fetchWWEChampions  from './fetchWWEChampions.js';
+import fetchDivaChampions from './fetchDivasChampions.js';
 import fetchWomensChampionship from './fetchWomensChampionship.js';
+import fetchWWEHeavyWeightChampions from "./fetchWWEHeavyWeightChampions.js";
 
 const mergeChampionsData = async () => {
   const combinedMap = new Map();
@@ -27,7 +28,7 @@ const mergeChampionsData = async () => {
   mergeData(await fetchUSChampions());
   mergeData(await fetchDivaChampions());
   mergeData(await fetchWomensChampionship());
-  
+  mergeData(await fetchWWEHeavyWeightChampions());
   
   const mergedData = Array.from(combinedMap.values()).filter(
     w => w.championships.length
