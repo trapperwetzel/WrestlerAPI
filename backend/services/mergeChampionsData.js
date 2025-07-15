@@ -1,5 +1,6 @@
 import fetchICChampions from './fetchICChampions.js';
 import fetchTagChampions from './fetchTagChampions.js';
+import fetchUSChampions from './fetchUSChampions.js';
 import fetchWWEChampions from './fetchWWEChampions.js';
 
 const mergeChampionsData = async () => {
@@ -26,10 +27,12 @@ const mergeChampionsData = async () => {
   const icChampionsData = await fetchICChampions();
   const wweChampionsData = await fetchWWEChampions();
   const tagChampionsData = await fetchTagChampions();
-
+  const usChampionsData = await fetchUSChampions()
   mergeData(icChampionsData);
   mergeData(wweChampionsData);
   mergeData(tagChampionsData);
+  mergeData(usChampionsData);
+  
   
 
   const mergedData = Array.from(combinedMap.values()).filter(w => w.championships.length > 0);
@@ -42,7 +45,7 @@ const mergeChampionsData = async () => {
       totalDaysHeld: champ.totalDaysHeld,
     }))
   );
-
+  console.table(finalData);
   return finalData;
 };
 
