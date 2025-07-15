@@ -38,7 +38,10 @@ async function fetchWWEChampions() {
       const totalReigns = parseInt(values[2], 10);
       const totalDaysHeld = parseInt(values[3].replace(/,/g, ''), 10) || 0;
 
-      const name = values[1].replace(/["']/g, '').trim();
+      const firstCell = values[0]?.trim();
+      let nameIndex = isNaN(firstCell) ? 0 : 1;
+      console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
+      const name = values[nameIndex]?.replace(/["']/g, '').trim();
 
       transformedData.push({
         name:name,
