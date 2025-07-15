@@ -1,4 +1,5 @@
 import fetchICChampions from './fetchICChampions.js';
+import fetchTagChampions from './fetchTagChampions.js';
 import fetchWWEChampions from './fetchWWEChampions.js';
 
 const mergeChampionsData = async () => {
@@ -24,9 +25,12 @@ const mergeChampionsData = async () => {
 
   const icChampionsData = await fetchICChampions();
   const wweChampionsData = await fetchWWEChampions();
+  const tagChampionsData = await fetchTagChampions();
 
   mergeData(icChampionsData);
   mergeData(wweChampionsData);
+  mergeData(tagChampionsData);
+  
 
   const mergedData = Array.from(combinedMap.values()).filter(w => w.championships.length > 0);
 

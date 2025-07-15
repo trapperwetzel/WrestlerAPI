@@ -19,7 +19,7 @@ async function fetchTagChampions() {
         
         const tables = doc.querySelectorAll("table.wikitable.sortable");
         
-        const table = tables[1];
+        const table = tables[2];
         
 
         if (!table) {
