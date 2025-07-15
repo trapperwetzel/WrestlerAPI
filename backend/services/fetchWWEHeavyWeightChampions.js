@@ -1,11 +1,11 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
 
-async function fetchUSChampions() {
-  console.log("Starting fetch for US Champions");
 
+const fetchWWEHeavyWeightChampions = async () => {
+  console.log("Starting fetch for WWE HeavyWeight Champions");
   try {
-    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_WWE_United_States_Champions&format=json");
+    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_World_Heavyweight_Champions_(WWE,_2002–2013)&format=json");
     const data = await resp.json();
 
     const htmlContent = data?.parse?.text?.["*"];
@@ -23,12 +23,14 @@ async function fetchUSChampions() {
     const transformedData = [];
 
     rows.forEach((row, index) => {
-      if (index < 2) return;
+      if (index < 1) return;
 
       const cells = row.querySelectorAll("th, td");
       const values = Array.from(cells).map(cell =>
         cell.textContent.trim().replace(/\[\d+\]/g, '').replace(/\s+/g, ' ')
       );
+      
+      
 
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
@@ -61,14 +63,14 @@ async function fetchUSChampions() {
         transformedData.push({
           name: name,
           championship: {
-            championshipName: "US Championship",
+            championshipName: "WWE Heavyweight Championship",
             totalReigns,
             totalDaysHeld,
           },
         });
       }
     });
-
+    
     return transformedData;
 
   } catch (err) {
@@ -77,4 +79,4 @@ async function fetchUSChampions() {
   }
 }
 
-export default fetchUSChampions;
+export default fetchWWEHeavyWeightChampions;
