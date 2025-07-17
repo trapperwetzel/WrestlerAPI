@@ -1,15 +1,17 @@
-import fetchICChampions   from './fetchICChampions.js';
-import fetchTagChampions  from './fetchTagChampions.js';
-import fetchUSChampions   from './fetchUSChampions.js';
-import fetchWWEChampions  from './fetchWWEChampions.js';
+import fetchICChampions from './fetchICChampions.js';
+import fetchTagChampions from './fetchTagChampions.js';
+import fetchUSChampions from './fetchUSChampions.js';
+import fetchWWEChampions from './fetchWWEChampions.js';
 import fetchDivaChampions from './fetchDivasChampions.js';
 import fetchWomensChampionship from './fetchWomensChampionship.js';
 import fetchWWEHeavyWeightChampions from "./fetchWWEHeavyWeightChampions.js";
+import fetchECWHeavyWeightChampions from "./fetchECWHeavyWeightChampions.js";
+
 
 const mergeChampionsData = async () => {
   const combinedMap = new Map();
 
-  const mergeData = dataArray => {
+  const mergeData = (dataArray) => {
     dataArray.forEach(({ name, championship }) => {
       if (!name || !championship?.championshipName) return;
 
@@ -22,13 +24,39 @@ const mergeChampionsData = async () => {
     });
   };
 
-  mergeData(await fetchICChampions());
-  mergeData(await fetchWWEChampions());
-  mergeData(await fetchTagChampions());
-  mergeData(await fetchUSChampions());
-  mergeData(await fetchDivaChampions());
-  mergeData(await fetchWomensChampionship());
-  mergeData(await fetchWWEHeavyWeightChampions());
+  // Fetch all championship data
+  const [
+    wweICChampions,
+    wweChampions,
+    wweTagChampions,
+    usChampions,
+    divaChampions,
+    womensChampions,
+    wweHeavyweight,
+    ecwHeavyweight,
+  ] = await Promise.all([
+    fetchICChampions(),
+    fetchWWEChampions(),
+    fetchTagChampions(),
+    fetchUSChampions(),
+    fetchDivaChampions(),
+    fetchWomensChampionship(),
+    fetchWWEHeavyWeightChampions(),
+    fetchECWHeavyWeightChampions(),
+  ]);
+
+  // Merge all championship data into combinedMap
+  [
+    wweICChampions,
+    wweChampions,
+    wweTagChampions,
+    usChampions,
+    divaChampions,
+    womensChampions,
+    wweHeavyweight,
+    ecwHeavyweight,
+  ].forEach(mergeData);
+
   
   const mergedData = Array.from(combinedMap.values()).filter(
     w => w.championships.length
@@ -36,8 +64,10 @@ const mergeChampionsData = async () => {
 
   const finalData = mergedData.map(wrestler => {
     const totals = wrestler.championships.reduce(
-      (acc, ch) => ({ reigns: acc.reigns + ch.totalReigns,
-                      days:   acc.days  + ch.totalDaysHeld }),
+      (acc, ch) => ({
+        reigns: acc.reigns + ch.totalReigns,
+        days:   acc.days  + ch.totalDaysHeld
+      }),
       { reigns: 0, days: 0 }
     );
 
@@ -48,9 +78,9 @@ const mergeChampionsData = async () => {
       championships:  wrestler.championships
     };
   });
-  finalData.sort((a, b) => b.totalReignsAll - a.totalReignsAll);
-  console.table(finalData);         
-  return finalData;                  
-};                                  
 
-export default mergeChampionsData;   
+  
+  console.table(finalData);
+  return finalData;
+};
+export default mergeChampionsData;

@@ -30,11 +30,9 @@ async function fetchWomensChampionship() {
         cell.textContent.trim().replace(/\[\d+\]/g, '').replace(/\s+/g, ' ')
       );
 
-      
-
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
-      console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
+      //console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
       const name = values[nameIndex]?.replace(/["']/g, '').trim();
 
       const reignsIndex = nameIndex + 1;
@@ -70,9 +68,7 @@ async function fetchWomensChampionship() {
         });
       }
     });
-
-    
-    
+    console.log("Transformed Data:", transformedData);
     return transformedData;
 
   } catch (err) {
