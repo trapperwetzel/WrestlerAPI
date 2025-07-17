@@ -35,7 +35,6 @@ async function fetchICChampions() {
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
       const name = values[nameIndex]?.replace(/["']/g, '').trim();
-
       const reignsIndex = nameIndex + 1;
       const totaldaysIndex = reignsIndex + 1;
 
@@ -69,9 +68,7 @@ async function fetchICChampions() {
         });
       }
     });
-
-    transformedData.sort((a, b) => b.totalDaysHeld - a.totalDaysHeld);
-
+    console.log("Transformed Data:", transformedData);
     return transformedData;
 
   } catch (err) {

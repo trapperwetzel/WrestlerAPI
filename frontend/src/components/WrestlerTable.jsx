@@ -49,7 +49,7 @@ const ExpandedChampList = ({ data }) => (
 
 
 const fetchWrestlers = async () => {
-  const res = await fetch('http://localhost:5000/api/wrestlers');
+  const res = await fetch('/wrestlers.json');
   if (!res.ok) throw new Error('Failed to fetch wrestlers');
   return res.json();
 };
