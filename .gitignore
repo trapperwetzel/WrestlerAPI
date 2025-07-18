@@ -20,3 +20,6 @@ backend/dist/
 # IDEs/editors
 .vscode/
 .idea/
+**/wrestlers.json
+/frontend/public/wrestlers.json
+/backend/wrestlers.json

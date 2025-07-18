@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "jest"
+    "test": "jest",
+    "builddata": "node scripts/buildData.js"
   },
   "jest": {
     "testEnvironment": "node"

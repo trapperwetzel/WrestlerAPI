@@ -1,4 +1,4 @@
-import fetchECWHeavyWeightChampions from "./services/fetchECWHeavyWeightChampions.js";
-import mergeChampionsData from "./services/mergeChampionsData.js";
-fetchECWHeavyWeightChampions()
-//mergeChampionsData()
+import mergeChampionsData from "./fetches/mergeChampionsData.js";
+import fetchAEWTNTChampions from "./fetches/fetchAEWTNTChampions.js";
+
+fetchAEWTNTChampions(); 

@@ -1,11 +1,11 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
 
+async function fetchUSChampions() {
+  console.log("Starting fetch for US Champions");
 
-const fetchWWEHeavyWeightChampions = async () => {
-  console.log("Starting fetch for WWE HeavyWeight Champions");
   try {
-    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_World_Heavyweight_Champions_(WWE,_2002–2013)&format=json");
+    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_WWE_United_States_Champions&format=json");
     const data = await resp.json();
 
     const htmlContent = data?.parse?.text?.["*"];
@@ -23,18 +23,16 @@ const fetchWWEHeavyWeightChampions = async () => {
     const transformedData = [];
 
     rows.forEach((row, index) => {
-      if (index < 1) return;
+      if (index < 2) return;
 
       const cells = row.querySelectorAll("th, td");
       const values = Array.from(cells).map(cell =>
         cell.textContent.trim().replace(/\[\d+\]/g, '').replace(/\s+/g, ' ')
       );
-      
-      
 
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
-      console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
+      //console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
       const name = values[nameIndex]?.replace(/["']/g, '').trim();
 
       const reignsIndex = nameIndex + 1;
@@ -63,14 +61,14 @@ const fetchWWEHeavyWeightChampions = async () => {
         transformedData.push({
           name: name,
           championship: {
-            championshipName: "WWE Heavyweight Championship",
+            championshipName: "US Championship",
             totalReigns,
             totalDaysHeld,
           },
         });
       }
     });
-    
+    console.log("Transformed Data:", transformedData);
     return transformedData;
 
   } catch (err) {
@@ -79,4 +77,4 @@ const fetchWWEHeavyWeightChampions = async () => {
   }
 }
 
-export default fetchWWEHeavyWeightChampions;
+export default fetchUSChampions;

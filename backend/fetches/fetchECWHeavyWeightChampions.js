@@ -1,11 +1,11 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
 
-async function fetchWomensChampionship() {
-  console.log("Starting fetch for Womens Champions");
 
+const fetchECWHeavyWeightChampions = async () => {
+  console.log("Starting fetch for ECW HeavyWeight Champions");
   try {
-    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_WWE_Divas_Champions&format=json");
+    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_ECW_World_Heavyweight_Champions&format=json");
     const data = await resp.json();
 
     const htmlContent = data?.parse?.text?.["*"];
@@ -13,7 +13,7 @@ async function fetchWomensChampionship() {
     const doc = dom.window.document;
 
     const tables = doc.querySelectorAll("table.wikitable.sortable");
-    const table = tables[1];
+    const table = tables[2];
     if (!table) {
       console.warn("Combined reigns table not found.");
       return [];
@@ -29,13 +29,14 @@ async function fetchWomensChampionship() {
       const values = Array.from(cells).map(cell =>
         cell.textContent.trim().replace(/\[\d+\]/g, '').replace(/\s+/g, ' ')
       );
-
+      
       
 
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
-      console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
+      //console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
       const name = values[nameIndex]?.replace(/["']/g, '').trim();
+      if (!name || /^[-–—]+$/.test(name)) return;
 
       const reignsIndex = nameIndex + 1;
       const totaldaysIndex = reignsIndex + 1;
@@ -63,16 +64,14 @@ async function fetchWomensChampionship() {
         transformedData.push({
           name: name,
           championship: {
-            championshipName: "Womens Championship",
+            championshipName: "ECW Heavyweight Championship",
             totalReigns,
             totalDaysHeld,
           },
         });
       }
     });
-
-    
-    
+    console.log("Transformed Data:", transformedData);
     return transformedData;
 
   } catch (err) {
@@ -81,4 +80,4 @@ async function fetchWomensChampionship() {
   }
 }
 
-export default fetchWomensChampionship;
+export default fetchECWHeavyWeightChampions;
