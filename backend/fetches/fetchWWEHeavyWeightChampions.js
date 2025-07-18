@@ -68,7 +68,7 @@ const fetchWWEHeavyWeightChampions = async () => {
         });
       }
     });
-    console.log("Transformed Data:", transformedData);
+    
     return transformedData;
 
   } catch (err) {
