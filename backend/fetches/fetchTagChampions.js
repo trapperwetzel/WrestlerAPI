@@ -7,28 +7,22 @@ async function fetchTagChampions() {
     try {
         const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_World_Tag_Team_Champions_(WWE)&format=json");
         const data = await resp.json();
-        
-        
-        const htmlContent = data?.parse?.text?.["*"];
-        
-        const dom = new JSDOM(htmlContent);
-        
-        const doc = dom.window.document;
-        
 
-        
+        const htmlContent = data?.parse?.text?.["*"];
+
+        const dom = new JSDOM(htmlContent);
+
+        const doc = dom.window.document;
+
         const tables = doc.querySelectorAll("table.wikitable.sortable");
         
         const table = tables[2];
-        
 
         if (!table) {
             console.warn("Combined reigns table not found.");
             return [];
         }
-
         const rows = table.querySelectorAll("tbody tr");
-        console.log("Rows found:", rows.length);
         
         const transformedData = [];
 
@@ -41,12 +35,9 @@ async function fetchTagChampions() {
                 cell.textContent.trim().replace(/\[\d+\]/g, '').replace(/\s+/g, ' ')
             );
             
-            console.log(values);
-
-            
             const firstCell = values[0]?.trim();
             let nameIndex = isNaN(firstCell) ? 0 : 1;
-            console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
+            //console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
             const name = values[nameIndex]?.replace(/["']/g, '').trim();
             
             
@@ -91,12 +82,7 @@ async function fetchTagChampions() {
             }
         });
 
-        transformedData.sort((a, b) =>  b.totalDaysHeld - a.totalDaysHeld);
-
-        
-        console.table(transformedData);
-        
-        
+        console.log("Transformed Data:", transformedData);
         return transformedData;
 
     } catch (err) {

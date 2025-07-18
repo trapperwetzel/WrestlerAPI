@@ -1,11 +1,11 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
 
-async function fetchUSChampions() {
-  console.log("Starting fetch for US Champions");
+async function fetchDivaChampions() {
+  console.log("Starting fetch for Divas Champions");
 
   try {
-    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_WWE_United_States_Champions&format=json");
+    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_WWE_Divas_Champions&format=json");
     const data = await resp.json();
 
     const htmlContent = data?.parse?.text?.["*"];
@@ -32,7 +32,7 @@ async function fetchUSChampions() {
 
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
-      console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
+      //console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
       const name = values[nameIndex]?.replace(/["']/g, '').trim();
 
       const reignsIndex = nameIndex + 1;
@@ -61,7 +61,7 @@ async function fetchUSChampions() {
         transformedData.push({
           name: name,
           championship: {
-            championshipName: "US Championship",
+            championshipName: "Divas Championship",
             totalReigns,
             totalDaysHeld,
           },
@@ -69,6 +69,8 @@ async function fetchUSChampions() {
       }
     });
 
+    
+    console.log("Transformed Data:", transformedData);
     return transformedData;
 
   } catch (err) {
@@ -77,4 +79,4 @@ async function fetchUSChampions() {
   }
 }
 
-export default fetchUSChampions;
+export default fetchDivaChampions;

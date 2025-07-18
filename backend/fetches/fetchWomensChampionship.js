@@ -1,11 +1,11 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
 
+async function fetchWomensChampionship() {
+  console.log("Starting fetch for Womens Champions");
 
-const fetchECWHeavyWeightChampions = async () => {
-  console.log("Starting fetch for ECW HeavyWeight Champions");
   try {
-    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_ECW_World_Heavyweight_Champions&format=json");
+    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_WWE_Divas_Champions&format=json");
     const data = await resp.json();
 
     const htmlContent = data?.parse?.text?.["*"];
@@ -13,7 +13,7 @@ const fetchECWHeavyWeightChampions = async () => {
     const doc = dom.window.document;
 
     const tables = doc.querySelectorAll("table.wikitable.sortable");
-    const table = tables[2];
+    const table = tables[1];
     if (!table) {
       console.warn("Combined reigns table not found.");
       return [];
@@ -29,14 +29,11 @@ const fetchECWHeavyWeightChampions = async () => {
       const values = Array.from(cells).map(cell =>
         cell.textContent.trim().replace(/\[\d+\]/g, '').replace(/\s+/g, ' ')
       );
-      
-      console.log("Row Values:", values);
 
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
-      console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
+      //console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
       const name = values[nameIndex]?.replace(/["']/g, '').trim();
-      if (!name || /^[-–—]+$/.test(name)) return;
 
       const reignsIndex = nameIndex + 1;
       const totaldaysIndex = reignsIndex + 1;
@@ -64,14 +61,14 @@ const fetchECWHeavyWeightChampions = async () => {
         transformedData.push({
           name: name,
           championship: {
-            championshipName: "ECW Heavyweight Championship",
+            championshipName: "Womens Championship",
             totalReigns,
             totalDaysHeld,
           },
         });
       }
     });
-    
+    console.log("Transformed Data:", transformedData);
     return transformedData;
 
   } catch (err) {
@@ -80,4 +77,4 @@ const fetchECWHeavyWeightChampions = async () => {
   }
 }
 
-export default fetchECWHeavyWeightChampions;
+export default fetchWomensChampionship;
