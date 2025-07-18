@@ -6,7 +6,10 @@ import fetchDivaChampions from './fetchDivasChampions.js';
 import fetchWomensChampionship from './fetchWomensChampionship.js';
 import fetchWWEHeavyWeightChampions from "./fetchWWEHeavyWeightChampions.js";
 import fetchECWHeavyWeightChampions from "./fetchECWHeavyWeightChampions.js";
-
+import fetchAEWChampions from './fetchAEWChampions.js';
+import fetchNXTChampions from './fetchNXTChampions.js';
+import fetchWCWChampions from './fetchWCWChampions.js';
+import fetchAEWTNTChampions from './fetchAEWTNTChampions.js';
 
 const mergeChampionsData = async () => {
   const combinedMap = new Map();
@@ -34,6 +37,10 @@ const mergeChampionsData = async () => {
     womensChampions,
     wweHeavyweight,
     ecwHeavyweight,
+    aewChampions,
+    nxtChampions,
+    wcwChampions,
+    aewTNTChampions
   ] = await Promise.all([
     fetchICChampions(),
     fetchWWEChampions(),
@@ -43,6 +50,10 @@ const mergeChampionsData = async () => {
     fetchWomensChampionship(),
     fetchWWEHeavyWeightChampions(),
     fetchECWHeavyWeightChampions(),
+    fetchAEWChampions(),
+    fetchNXTChampions(),
+    fetchWCWChampions(),
+    fetchAEWTNTChampions()
   ]);
 
   // Merge all championship data into combinedMap
@@ -55,6 +66,10 @@ const mergeChampionsData = async () => {
     womensChampions,
     wweHeavyweight,
     ecwHeavyweight,
+    aewChampions,
+    nxtChampions,
+    wcwChampions,
+    aewTNTChampions
   ].forEach(mergeData);
 
   
