@@ -1,5 +1,5 @@
 import express from 'express';
-import mergeChampionsData from '../services/mergeChampionsData.js';
+import mergeChampionsData from '../fetches/mergeChampionsData.js';
 
 const router = express.Router();
 

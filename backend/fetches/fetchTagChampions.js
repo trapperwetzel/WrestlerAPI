@@ -72,7 +72,7 @@ async function fetchTagChampions() {
                     
                     name: name,
                     championship:{ 
-                        championshipName: "Tag Championship",
+                        championshipName: "WWE Tag Championship",
                         totalReigns: totalReigns,
                         totalDaysHeld: totalDaysHeld
                     },

@@ -5,7 +5,7 @@ import { JSDOM } from 'jsdom';
 const fetchNXTChampions = async () => {
   console.log("Starting fetch for NXT Champions");
   try {
-    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_NXT_North_American_Champions&format=json");
+    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_NXT_Champions&format=json");
     const data = await resp.json();
 
     const htmlContent = data?.parse?.text?.["*"];
