@@ -1,11 +1,11 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
 
+async function fetchNXTWomensChampionship() {
+  console.log("Starting fetch for NXT Womens Champions");
 
-const fetchWCWChampions = async () => {
-  console.log("Starting fetch for WCW Champions");
   try {
-    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_WCW_World_Heavyweight_Champions&format=json");
+    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_NXT_Women's_Champions&format=json");
     const data = await resp.json();
 
     const htmlContent = data?.parse?.text?.["*"];
@@ -21,20 +21,20 @@ const fetchWCWChampions = async () => {
 
     const rows = table.querySelectorAll("tbody tr");
     const transformedData = [];
-    
+
     rows.forEach((row, index) => {
-      
-        if (index < 1) return;
-        
+      if (index < 2) return;
+
       const cells = row.querySelectorAll("th, td");
       const values = Array.from(cells).map(cell =>
         cell.textContent.trim().replace(/\[\d+\]/g, '').replace(/\s+/g, ' ')
       );
-      
+
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
       //console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
       const name = values[nameIndex]?.replace(/["']/g, '').trim();
+
       const reignsIndex = nameIndex + 1;
       const totaldaysIndex = reignsIndex + 1;
 
@@ -58,18 +58,16 @@ const fetchWCWChampions = async () => {
       }
 
       if (name && !isNaN(totalReigns)) {
-        
         transformedData.push({
           name: name,
           championship: {
-            championshipName: "WCW Championship",
+            championshipName: "NXT Womens Championship",
             totalReigns,
             totalDaysHeld,
           },
         });
       }
     });
-    
     console.log("Transformed Data:", transformedData);
     return transformedData;
 
@@ -79,4 +77,4 @@ const fetchWCWChampions = async () => {
   }
 }
 
-export default fetchWCWChampions;
+export default fetchNXTWomensChampionship;
