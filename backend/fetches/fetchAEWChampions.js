@@ -1,11 +1,17 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
-
+import buildWikiUrl from "./wiki/fetchHelper.js";
 
 const fetchAEWChampions = async () => {
+
+  const url = buildWikiUrl("List_of_AEW_World_Champions");
+  if (!url) {
+    console.error("Failed to build URL for AEW Champions");
+    return [];
+  }
   console.log("Starting fetch for AEW Champions");
   try {
-    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_AEW_World_Champions&format=json");
+    const resp = await fetch(url);
     const data = await resp.json();
 
     const htmlContent = data?.parse?.text?.["*"];
@@ -68,7 +74,7 @@ const fetchAEWChampions = async () => {
         });
       }
     });
-    
+    console.log("Transformed Data:", transformedData);
     return transformedData;
 
   } catch (err) {

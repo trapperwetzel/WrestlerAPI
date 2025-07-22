@@ -11,8 +11,8 @@ import fetchNXTChampions from './fetchNXTChampions.js';
 import fetchWCWChampions from './fetchWCWChampions.js';
 import fetchAEWTNTChampions from './fetchAEWTNTChampions.js';
 import fetchNXTNorthAChampions from './fetchNXTNorthAChampions.js';
-import fetchNXTWomensChampionship from "./fetches/fetchNXTWomensChampionship.js";
-
+import fetchNXTWomensChampionship from "./fetchNXTWomensChampionship.js";
+import fetchTNAChampions from './fetchTNAChampions.js';
 const mergeChampionsData = async () => {
   const combinedMap = new Map();
 
@@ -44,8 +44,9 @@ const mergeChampionsData = async () => {
     wcwChampions,
     aewTNTChampions,
     nxtNorthAmericanChampions,
-    fetchNXTWomensChampionship,
-    
+    nxtWomensChampions,
+    tnaChampions
+
   ] = await Promise.all([
     fetchICChampions(),
     fetchWWEChampions(),
@@ -61,6 +62,7 @@ const mergeChampionsData = async () => {
     fetchAEWTNTChampions(),
     fetchNXTNorthAChampions(),
     fetchNXTWomensChampionship(),
+    fetchTNAChampions()
   ]);
 
   // Merge all championship data into combinedMap
@@ -78,10 +80,11 @@ const mergeChampionsData = async () => {
     wcwChampions,
     aewTNTChampions,
     nxtNorthAmericanChampions,
-    fetchNXTWomensChampionship,
+    nxtWomensChampions,
+    tnaChampions
   ].forEach(mergeData);
 
-  
+
   const mergedData = Array.from(combinedMap.values()).filter(
     w => w.championships.length
   );
@@ -90,7 +93,7 @@ const mergeChampionsData = async () => {
     const totals = wrestler.championships.reduce(
       (acc, ch) => ({
         reigns: acc.reigns + ch.totalReigns,
-        days:   acc.days  + ch.totalDaysHeld
+        days: acc.days + ch.totalDaysHeld
       }),
       { reigns: 0, days: 0 }
     );
@@ -98,12 +101,12 @@ const mergeChampionsData = async () => {
     return {
       name: wrestler.name,
       totalReignsAll: totals.reigns,
-      totalDaysAll:   totals.days,
-      championships:  wrestler.championships
+      totalDaysAll: totals.days,
+      championships: wrestler.championships
     };
   });
 
-  
+
   console.table(finalData);
   return finalData;
 };

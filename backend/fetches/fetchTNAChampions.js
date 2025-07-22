@@ -1,12 +1,17 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
+import buildWikiUrl from "./wiki/fetchHelper.js";
 
+const fetchTNAChampions = async () => {
 
-const fetchAEWTNTChampions = async () => {
-  console.log("Starting fetch for AEW TNT Champions");
-  
+  const url = buildWikiUrl("List_of_TNA_World_Champions")
+  if (!url) {
+    console.error("Failed to build URL for TNA Champions");
+    return [];
+  }
+  console.log("Starting fetch for TNA Champions");
   try {
-    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_AEW_TNT_Champions&format=json");
+    const resp = await fetch(url);
     const data = await resp.json();
 
     const htmlContent = data?.parse?.text?.["*"];
@@ -14,7 +19,7 @@ const fetchAEWTNTChampions = async () => {
     const doc = dom.window.document;
 
     const tables = doc.querySelectorAll("table.wikitable.sortable");
-    const table = tables[1];
+    const table = tables[2];
     if (!table) {
       console.warn("Combined reigns table not found.");
       return [];
@@ -62,7 +67,7 @@ const fetchAEWTNTChampions = async () => {
         transformedData.push({
           name: name,
           championship: {
-            championshipName: "AEW TNT Championship",
+            championshipName: "TNA Championship",
             totalReigns,
             totalDaysHeld,
           },
@@ -78,4 +83,4 @@ const fetchAEWTNTChampions = async () => {
   }
 }
 
-export default fetchAEWTNTChampions;
+export default fetchTNAChampions;
