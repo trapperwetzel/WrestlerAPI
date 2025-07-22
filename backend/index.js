@@ -1,4 +1,3 @@
+import fetchTNATagChampions from "./fetches/fetchTNATagChampions.js";
 
-import fetchNXTWomensChampionship from "./fetches/fetchNXTWomensChampionship.js";
-
-fetchNXTWomensChampionship()
+fetchTNATagChampions();
