@@ -1,3 +1,3 @@
-import fetchTNATagChampions from "./fetches/fetchTNATagChampions.js";
+import parseData from "./helpers/parseData.js";
 
-fetchTNATagChampions();
+parseData();
