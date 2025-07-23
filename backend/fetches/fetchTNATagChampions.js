@@ -72,7 +72,7 @@ const fetchTNATagChampions = async () => {
           totalDaysHeld = parseInt(daysValue.replace(/[,+–]/g, ''), 10) || 0;
         }
       }
-      
+      console.log(rows[index-1]);
       
 
       if (name && !isNaN(totalReigns)) {

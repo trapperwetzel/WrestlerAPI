@@ -62,7 +62,7 @@ const fetchTNAChampions = async () => {
           totalDaysHeld = parseInt(daysValue.replace(/[,+–]/g, ''), 10) || 0;
         }
       }
-
+      
       if (name && !isNaN(totalReigns)) {
         transformedData.push({
           name: name,
