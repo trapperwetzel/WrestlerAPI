@@ -1,4 +1,4 @@
-// scripts/build-data.js
+
 import fs from 'fs';
 import mergeChampionsData from '../fetches/mergeChampionsData.js';
 
