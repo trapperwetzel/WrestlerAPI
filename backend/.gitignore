@@ -3,3 +3,4 @@ node_modules
 
 # Ignore static data file
 wrestlers.json
+officalWrestlers.json

@@ -1,3 +1,4 @@
-import parseData from "./helpers/parseData.js";
 
-parseData();
+import buildDataset from "./helpers/duplicates/mergeDuplicates.js";
+
+buildDataset();
