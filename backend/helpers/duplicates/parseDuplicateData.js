@@ -59,43 +59,43 @@ const wrestlerVariations = {
   "aj styles": ["aj styles", "phenomenal one"]
 };
 
-function findCanonicalName(wrestlerName) {
+function findDuplicateNames(wrestlerName) {
   const cleanName = wrestlerName.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
   
-  for (const [canonical, variations] of Object.entries(wrestlerVariations)) {
+  for (const [duplicate, variations] of Object.entries(wrestlerVariations)) {
     if (variations.some(variation => {
       const cleanVariation = variation.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
       return cleanName === cleanVariation || 
              cleanName.includes(cleanVariation) || 
              cleanVariation.includes(cleanName);
     })) {
-      return canonical;
+      return duplicate;
     }
   }
   
   return null; // No match found
 }
 
-const parseData = () => {
+const parseDuplicateData = () => {
   const duplicates = [];
   const duplicateGroups = new Map();
 
   for (const wrestler of wrestlers) {
-    const canonicalName = findCanonicalName(wrestler.name);
+    const duplicateName = findDuplicateNames(wrestler.name);
     
-    if (canonicalName) {
-      console.log(`✓ Found duplicate: "${wrestler.name}" → "${canonicalName}"`);
+    if (duplicateName) {
+      console.log(`✓ Found duplicate: "${wrestler.name}" → "${duplicateName}"`);
       duplicates.push({
         originalName: wrestler.name,
-        canonicalName: canonicalName,
+        duplicateName: duplicateName,
         wrestler: wrestler
       });
 
       // Group duplicates together
-      if (!duplicateGroups.has(canonicalName)) {
-        duplicateGroups.set(canonicalName, []);
+      if (!duplicateGroups.has(duplicateName)) {
+        duplicateGroups.set(duplicateName, []);
       }
-      duplicateGroups.get(canonicalName).push(wrestler);
+      duplicateGroups.get(duplicateName).push(wrestler);
     }
   }
 
@@ -103,9 +103,9 @@ const parseData = () => {
   console.log(`Total duplicates found: ${duplicates.length}`);
   
   console.log('\n=== DUPLICATE GROUPS ===');
-  for (const [canonical, wrestlerGroup] of duplicateGroups) {
+  for (const [duplicate, wrestlerGroup] of duplicateGroups) {
     if (wrestlerGroup.length > 1) {
-      console.log(`\n${canonical.toUpperCase()}:`);
+      console.log(`\n${duplicate.toUpperCase()}:`);
       wrestlerGroup.forEach(w => {
         console.log(`  - ${w.name} (${w.totalReignsAll} reigns, ${w.totalDaysAll} days)`);
       });
@@ -115,4 +115,4 @@ const parseData = () => {
   return { duplicates, duplicateGroups };
 };
 
-export default parseData;
+export default parseDuplicateData;
