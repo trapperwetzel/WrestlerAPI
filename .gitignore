@@ -23,3 +23,5 @@ backend/dist/
 **/wrestlers.json
 /frontend/public/wrestlers.json
 /backend/wrestlers.json
+officalWrestlers.json
+**/officalWrestlers.json

@@ -25,3 +25,4 @@ dist-ssr
 
 # Ignore static data file
 /public/wrestlers.json
+officalWrestlers.json

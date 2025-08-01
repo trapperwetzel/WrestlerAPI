@@ -51,7 +51,7 @@ fs.writeFileSync(
   JSON.stringify(wrestlerData, null, 2)
 );
 
-console.log("Offical wwrestler data written to src/officalWrestlers.json");
+console.log("Offical wrestler data written to src/officalWrestlers.json");
 
 
 export default buildDataset;
