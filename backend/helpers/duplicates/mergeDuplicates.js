@@ -8,6 +8,11 @@ function normalizeName(name) {
   return name.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
 }
 
+
+function capitalizeWords(str) {
+  return str.replace(/\b\w/g, char => char.toUpperCase());
+}
+
 function findMainGimmick(name) {
   const cleanName = normalizeName(name);
 
@@ -15,25 +20,25 @@ function findMainGimmick(name) {
     if (aliases.map(normalizeName).includes(cleanName)) return canonical;
   }
 
-  return name.trim(); // fallback to original
+  return capitalizeWords(name.trim()); // fallback to capitalized original
 }
 
 function buildDataset() {
   const mergedMap = new Map();
 
   for (const wrestler of wrestlers) {
-    const canonicalName = findMainGimmick(wrestler.name);
+    const mainName = findMainGimmick(wrestler.name);
 
-    if (!mergedMap.has(canonicalName)) {
-      mergedMap.set(canonicalName, {
-        name: canonicalName,
+    if (!mergedMap.has(mainName)) {
+      mergedMap.set(mainName, {
+        name: mainName,
         totalReignsAll: 0,
         totalDaysAll: 0,
         championships: []
       });
     }
 
-    const entry = mergedMap.get(canonicalName);
+    const entry = mergedMap.get(mainName);
 
     entry.totalReignsAll += wrestler.totalReignsAll || 0;
     entry.totalDaysAll   += wrestler.totalDaysAll || 0;
@@ -52,6 +57,5 @@ fs.writeFileSync(
 );
 
 console.log("Offical wrestler data written to src/officalWrestlers.json");
-
 
 export default buildDataset;
