@@ -38,7 +38,7 @@ const wrestlerVariations = {
   "Triple H": ["Triple H", "Hunter Hearst Helmsley", "The Game"],
   "Kane": ["Kane", "Glenn Jacobs"],
   "Rey Mysterio": ["Rey Mysterio", "Rey Mysterio Jr"],
-  "Cm Punk": ["Cm Punk", "Phil Brooks"],
+  "CM Punk": ["CM Punk", "Phil Brooks"],
   "Kevin Owens": ["Kevin Owens", "Kevin Steen"],
   "Sami Zayn": ["Sami Zayn", "El Generico"],
   "Seth Rollins": ["Seth Rollins", "Tyler Black"],
