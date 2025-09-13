@@ -16,8 +16,8 @@ function capitalizeWords(str) {
 function findMainGimmick(name) {
   const cleanName = normalizeName(name);
 
-  for (const [canonical, aliases] of Object.entries(wrestlerVariations)) {
-    if (aliases.map(normalizeName).includes(cleanName)) return canonical;
+  for (const [finalName, aliases] of Object.entries(wrestlerVariations)) {
+    if (aliases.map(normalizeName).includes(cleanName)) return finalName;
   }
 
   return capitalizeWords(name.trim()); // fallback to capitalized original
