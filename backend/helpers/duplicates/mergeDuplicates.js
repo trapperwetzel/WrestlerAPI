@@ -1,8 +1,9 @@
-import wrestlers from "../wrestlerData.js";
+import mergeChampionsData from "../../fetches/mergeChampionsData.js";
 import fs from "fs";
 import path from "path";
-
 import wrestlerVariations from "./wrestlerVariations.js"; 
+
+const wrestlers = await mergeChampionsData();
 
 function normalizeName(name) {
   return name.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
@@ -16,8 +17,8 @@ function capitalizeWords(str) {
 function findMainGimmick(name) {
   const cleanName = normalizeName(name);
 
-  for (const [canonical, aliases] of Object.entries(wrestlerVariations)) {
-    if (aliases.map(normalizeName).includes(cleanName)) return canonical;
+  for (const [finalName, aliases] of Object.entries(wrestlerVariations)) {
+    if (aliases.map(normalizeName).includes(cleanName)) return finalName;
   }
 
   return capitalizeWords(name.trim()); // fallback to capitalized original
