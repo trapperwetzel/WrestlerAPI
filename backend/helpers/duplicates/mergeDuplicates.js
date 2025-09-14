@@ -1,8 +1,9 @@
-import wrestlers from "../wrestlerData.js";
+import mergeChampionsData from "../../fetches/mergeChampionsData.js";
 import fs from "fs";
 import path from "path";
-
 import wrestlerVariations from "./wrestlerVariations.js"; 
+
+const wrestlers = await mergeChampionsData();
 
 function normalizeName(name) {
   return name.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();

@@ -1,8 +1,10 @@
-import wrestlers from "../wrestlerData.js";
+import mergeChampionsData from "../../fetches/mergeChampionsData.js";
 import wrestlerVariations from "./wrestlerVariations.js";
 
-
+const wrestlers = await mergeChampionsData();
 function findDuplicateName(wrestlerName) {
+  
+  
   const cleanName = wrestlerName.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
   
   for (const [duplicate, variations] of Object.entries(wrestlerVariations)) {
