@@ -37,22 +37,13 @@ const fetchTNATagChampions = async () => {
       );
       
       
-      // Log raw values for debugging
-      console.log(`Row ${index} raw values:`, values);
-      
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
-      
-      console.log(`Row ${index} - First cell: "${firstCell}", Name Index: ${nameIndex}`);
-      
+  
       const name = values[nameIndex]?.replace(/["']/g, '').trim();
-      console.log(`Row ${index} - Name: "${name}"`);
-
       const reignsIndex = nameIndex + 1;
       const totaldaysIndex = reignsIndex + 1;
       
-      console.log(`Row ${index} - Reigns Index: ${reignsIndex}, Days Index: ${totaldaysIndex}`);
-      console.log(`Row ${index} - Reigns Value: "${values[reignsIndex]}", Days Value: "${values[totaldaysIndex]}"`);
 
       let totalReigns = 0;
       const reignsValue = values[reignsIndex];
@@ -86,7 +77,7 @@ const fetchTNATagChampions = async () => {
         });
       }
     });
-    console.log("Transformed Data:", transformedData);
+    // console.log("Transformed Data:", transformedData);
     return transformedData;
 
   } catch (err) {

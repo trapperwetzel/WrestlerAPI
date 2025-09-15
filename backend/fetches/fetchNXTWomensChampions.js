@@ -1,11 +1,11 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
 
-async function fetchICChampions() {
-  console.log("Starting fetch for IC Champions");
+async function fetchNXTWomensChampions() {
+  console.log("Starting fetch for NXT Womens Champions");
 
   try {
-    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_WWE_Intercontinental_Champions&format=json");
+    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_NXT_Women's_Champions&format=json");
     const data = await resp.json();
 
     const htmlContent = data?.parse?.text?.["*"];
@@ -30,11 +30,11 @@ async function fetchICChampions() {
         cell.textContent.trim().replace(/\[\d+\]/g, '').replace(/\s+/g, ' ')
       );
 
-      if (values.length < 4) return;
-
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
+      
       const name = values[nameIndex]?.replace(/["']/g, '').trim();
+
       const reignsIndex = nameIndex + 1;
       const totaldaysIndex = reignsIndex + 1;
 
@@ -61,14 +61,14 @@ async function fetchICChampions() {
         transformedData.push({
           name: name,
           championship: {
-            championshipName: "IC Championship",
+            championshipName: "NXT Womens Championship",
             totalReigns,
             totalDaysHeld,
           },
         });
       }
     });
-    console.log("Transformed Data:", transformedData);
+    // console.log("Transformed Data:", transformedData);
     return transformedData;
 
   } catch (err) {
@@ -77,4 +77,4 @@ async function fetchICChampions() {
   }
 }
 
-export default fetchICChampions;
+export default fetchNXTWomensChampions;

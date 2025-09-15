@@ -1,11 +1,19 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
+import buildWikiUrl from "./utils/fetchHelper.js";
 
-async function fetchWomensChampionship() {
+async function fetchWWEWomensChampions() {
+
+  const url = buildWikiUrl("List_of_WWE_Women's_Champions");
+  if (!url) {
+    console.error("Failed to build URL for WWE Womens Champions");
+    return [];
+  }
+
   console.log("Starting fetch for Womens Champions");
 
   try {
-    const resp = await fetch("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_WWE_Divas_Champions&format=json");
+    const resp = await fetch(url);
     const data = await resp.json();
 
     const htmlContent = data?.parse?.text?.["*"];
@@ -23,7 +31,8 @@ async function fetchWomensChampionship() {
     const transformedData = [];
 
     rows.forEach((row, index) => {
-      if (index < 2) return;
+      // skip headers
+      if (index < 1) return;
 
       const cells = row.querySelectorAll("th, td");
       const values = Array.from(cells).map(cell =>
@@ -32,7 +41,6 @@ async function fetchWomensChampionship() {
 
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
-      //console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
       const name = values[nameIndex]?.replace(/["']/g, '').trim();
 
       const reignsIndex = nameIndex + 1;
@@ -61,14 +69,14 @@ async function fetchWomensChampionship() {
         transformedData.push({
           name: name,
           championship: {
-            championshipName: "Womens Championship",
+            championshipName: "WWE Womens Championship",
             totalReigns,
             totalDaysHeld,
           },
         });
       }
     });
-    console.log("Transformed Data:", transformedData);
+    //console.log("Transformed Data:", transformedData);
     return transformedData;
 
   } catch (err) {
@@ -77,4 +85,4 @@ async function fetchWomensChampionship() {
   }
 }
 
-export default fetchWomensChampionship;
+export default fetchWWEWomensChampions;

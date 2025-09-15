@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
 
-async function fetchTagChampions() {
+async function fetchWWETagChampions() {
     console.log("Starting fetch for Tag Champions");
 
     try {
@@ -37,7 +37,7 @@ async function fetchTagChampions() {
             
             const firstCell = values[0]?.trim();
             let nameIndex = isNaN(firstCell) ? 0 : 1;
-            //console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
+            
             const name = values[nameIndex]?.replace(/["']/g, '').trim();
             
             
@@ -66,13 +66,13 @@ async function fetchTagChampions() {
                 }
             }
             
-            // Only add the entry if we have a valid name and reigns count
+            
             if (name && !isNaN(totalReigns)) {
                 transformedData.push({
                     
                     name: name,
                     championship:{ 
-                        championshipName: "WWE Tag Championship",
+                        championshipName: "WWE Tag Team Championship",
                         totalReigns: totalReigns,
                         totalDaysHeld: totalDaysHeld
                     },
@@ -82,7 +82,7 @@ async function fetchTagChampions() {
             }
         });
 
-        console.log("Transformed Data:", transformedData);
+        // console.log("Transformed Data:", transformedData);
         return transformedData;
 
     } catch (err) {
@@ -91,4 +91,4 @@ async function fetchTagChampions() {
     }
 }
 
-export default fetchTagChampions;
+export default fetchWWETagChampions;

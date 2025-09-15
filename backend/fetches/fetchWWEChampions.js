@@ -40,7 +40,7 @@ async function fetchWWEChampions() {
 
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
-      //console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
+      
       const name = values[nameIndex]?.replace(/["']/g, '').trim();
 
       transformedData.push({
@@ -52,7 +52,7 @@ async function fetchWWEChampions() {
         },
       });
     });
-    console.log("Transformed Data:", transformedData);
+    // console.log("Transformed Data:", transformedData);
     return transformedData;
 
   } catch (err) {

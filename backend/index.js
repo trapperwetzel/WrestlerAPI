@@ -1,4 +1,2 @@
-
-import buildDataset from "./helpers/duplicates/mergeDuplicates.js";
-
-buildDataset();
+ import buildDataset from "./helpers/duplicates/mergeDuplicates.js";
+ buildDataset();

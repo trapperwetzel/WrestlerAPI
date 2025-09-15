@@ -2,19 +2,19 @@ import mergeChampionsData from "../../fetches/mergeChampionsData.js";
 import fs from "fs";
 import path from "path";
 import wrestlerVariations from "./wrestlerVariations.js"; 
+import federations from "../federations.js";
 
 const wrestlers = await mergeChampionsData();
 
-function normalizeName(name) {
+const normalizeName = (name) => {
   return name.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
 }
 
-
-function capitalizeWords(str) {
+const capitalizeWords = (str) => {
   return str.replace(/\b\w/g, char => char.toUpperCase());
 }
 
-function findMainGimmick(name) {
+const findMainGimmick = (name) => {
   const cleanName = normalizeName(name);
 
   for (const [finalName, aliases] of Object.entries(wrestlerVariations)) {
@@ -24,7 +24,15 @@ function findMainGimmick(name) {
   return capitalizeWords(name.trim()); // fallback to capitalized original
 }
 
-function buildDataset() {
+// find the federations the wrestler is apart of
+// take the wrestlers championship array, and search from the strings "AEW", "TNA", "WWE"
+// const findFederations = (championships) => {
+
+    
+
+//  }
+
+const buildDataset = () => {
   const mergedMap = new Map();
 
   for (const wrestler of wrestlers) {
@@ -33,16 +41,12 @@ function buildDataset() {
     if (!mergedMap.has(mainName)) {
       mergedMap.set(mainName, {
         name: mainName,
-        totalReignsAll: 0,
-        totalDaysAll: 0,
         championships: []
       });
     }
 
     const entry = mergedMap.get(mainName);
 
-    entry.totalReignsAll += wrestler.totalReignsAll || 0;
-    entry.totalDaysAll   += wrestler.totalDaysAll || 0;
     entry.championships.push(...wrestler.championships || []);
   }
 

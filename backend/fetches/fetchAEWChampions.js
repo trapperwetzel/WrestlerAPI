@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
-import buildWikiUrl from "./wiki/fetchHelper.js";
+import buildWikiUrl from "./utils/fetchHelper.js";
 
 const fetchAEWChampions = async () => {
 
@@ -38,7 +38,7 @@ const fetchAEWChampions = async () => {
       
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
-      //console.log("Name Index:", nameIndex, "Name:", values[nameIndex]);
+      
       const name = values[nameIndex]?.replace(/["']/g, '').trim();
 
       const reignsIndex = nameIndex + 1;
@@ -74,7 +74,7 @@ const fetchAEWChampions = async () => {
         });
       }
     });
-    console.log("Transformed Data:", transformedData);
+    //console.log("Transformed Data:", transformedData);
     return transformedData;
 
   } catch (err) {
