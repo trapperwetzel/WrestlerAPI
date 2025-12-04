@@ -25,7 +25,6 @@ It uses a Node.js/Express backend, PostgreSQL database, and a React + Vite front
 **Frontend:** React 19, Vite, React Query, React Data Table, Framer Motion, Styled Components  
 
 ## Getting Started
-
 git clone git@github.com:trapperwetzel/WrestlerAPI.git
 cd WrestlerAPI
 
@@ -38,4 +37,3 @@ cd backend
 npm run seed
 
 npm run dev
-
