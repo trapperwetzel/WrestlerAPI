@@ -3,21 +3,21 @@ import wrestlerVariations from "./wrestlerVariations.js";
 
 const wrestlers = await mergeChampionsData();
 function findDuplicateName(wrestlerName) {
-  
-  
+
+
   const cleanName = wrestlerName.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
-  
+
   for (const [duplicate, variations] of Object.entries(wrestlerVariations)) {
     if (variations.some(variation => {
       const cleanVariation = variation.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
-      return cleanName === cleanVariation || 
-             cleanName.includes(cleanVariation) || 
-             cleanVariation.includes(cleanName);
+      return cleanName === cleanVariation ||
+        cleanName.includes(cleanVariation) ||
+        cleanVariation.includes(cleanName);
     })) {
       return duplicate;
     }
   }
-  
+
   return null; // No match found
 }
 
@@ -27,7 +27,7 @@ const parseDuplicateData = () => {
 
   for (const wrestler of wrestlers) {
     const duplicateName = findDuplicateName(wrestler.name);
-    
+
     if (duplicateName) {
       console.log(`✓ Found duplicate: "${wrestler.name}" → "${duplicateName}"`);
       duplicates.push({
@@ -46,7 +46,7 @@ const parseDuplicateData = () => {
 
   console.log('\n=== DUPLICATE SUMMARY ===');
   console.log(`Total duplicates found: ${duplicates.length}`);
-  
+
   console.log('\n=== DUPLICATE GROUPS ===');
   for (const [duplicate, wrestlerGroup] of duplicateGroups) {
     if (wrestlerGroup.length > 1) {

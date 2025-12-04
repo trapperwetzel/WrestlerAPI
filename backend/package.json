@@ -7,7 +7,8 @@
   "scripts": {
     "start": "nodemon server.js",
     "test": "jest",
-    "builddata": "node scripts/buildData.js"
+    "builddata": "node scripts/buildData.js",
+    "seed": "node scripts/loadDataToDb.js"
   },
   "jest": {
     "testEnvironment": "node"

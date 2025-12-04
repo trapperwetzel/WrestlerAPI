@@ -35,10 +35,10 @@ const fetchAEWChampions = async () => {
       const values = Array.from(cells).map(cell =>
         cell.textContent.trim().replace(/\[\d+\]/g, '').replace(/\s+/g, ' ')
       );
-      
+
       const firstCell = values[0]?.trim();
       let nameIndex = isNaN(firstCell) ? 0 : 1;
-      
+
       const name = values[nameIndex]?.replace(/["']/g, '').trim();
 
       const reignsIndex = nameIndex + 1;

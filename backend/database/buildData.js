@@ -1,8 +1,7 @@
-import mergeChampionsData from "../../fetches/mergeChampionsData.js";
+import mergeChampionsData from "../fetches/mergeChampionsData.js";
 import fs from "fs";
 import path from "path";
-import wrestlerVariations from "./wrestlerVariations.js"; 
-import federations from "../federations.js";
+import wrestlerVariations from "./wrestlerVariations.js";
 
 const wrestlers = await mergeChampionsData();
 
@@ -28,7 +27,7 @@ const findMainGimmick = (name) => {
 // take the wrestlers championship array, and search from the strings "AEW", "TNA", "WWE"
 // const findFederations = (championships) => {
 
-    
+
 
 //  }
 
