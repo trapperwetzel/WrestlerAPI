@@ -28,6 +28,7 @@ It uses a Node.js/Express backend, PostgreSQL database, and a React + Vite front
 Clone Repo: 
 
 git clone git@github.com:trapperwetzel/WrestlerAPI.git
+
 cd WrestlerAPI
 
 Install Dependencies: 
